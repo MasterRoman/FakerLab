@@ -17,7 +17,7 @@ namespace FieldCreators.PrimitiveTypesCreators
 
         public object create()
         {
-            var number = new Random().Next();
+            var number = new Random().Next(1,64);
             return (char)number;
         }
 

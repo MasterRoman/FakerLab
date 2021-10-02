@@ -35,6 +35,7 @@ namespace FieldCreators
             addToDict(dict, new DateTimeCreator());
 
             addToDict(dict, new StringCreator());
+            addToDict(dict, new CharCreator());
 
             return dict;
         }
