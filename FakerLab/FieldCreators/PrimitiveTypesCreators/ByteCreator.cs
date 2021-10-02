@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FieldCreators
+namespace FieldCreators.PrimitiveTypesCreators
 {
-    interface IType
+    class ByteCreator
     {
-        Type curType { get; }
     }
 }

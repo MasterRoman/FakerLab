@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace FieldCreators.PrimitiveTypesCreators
 {
-    class BoolCreator : IPrimitiveTypeCreator
+    class CharCreator : IPrimitiveTypeCreator
     {
-        public Type curType { get;}
+        public Type curType { get; }
 
-        public BoolCreator()
+        public CharCreator()
         {
-            this.curType = typeof(bool);
+            this.curType = typeof(char);
         }
 
         public object create()
         {
             var number = new Random().Next();
-            return number % 2 == 0;
+            return (char)number;
         }
 
     }
