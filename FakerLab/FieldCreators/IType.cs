@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FieldCreators
 {
-    interface IType
+    public interface IType
     {
         Type curType { get; }
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FieldCreators.PrimitiveTypesCreators
 {
-    interface IPrimitiveTypeCreator : IType
+    public interface IPrimitiveTypeCreator : IType
     {
         object create();
     }
