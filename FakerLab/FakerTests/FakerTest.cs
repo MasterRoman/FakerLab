@@ -43,5 +43,13 @@ namespace FakerTests
             Assert.NotNull(c.c);
         }
 
+
+        [Fact]
+        public void TestBoolFromDll()
+        {
+            ClassWithBool instance = faker.create<ClassWithBool>();
+            Assert.True(instance.boolean == false || instance.boolean == true);
+        }
+
     }
 }

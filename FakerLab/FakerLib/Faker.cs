@@ -52,6 +52,9 @@ namespace FakerLib
                         {
                             var creator = (IGenericCreator)Activator.CreateInstance(type,this.primitiveTypeCreator);
                             genericTypeCreator.Add(creator.curType, creator);
+                        } else if (typeInterface.Equals(typeof(IPrimitiveTypeCreator))) {
+                            var creator = (IPrimitiveTypeCreator)Activator.CreateInstance(type);
+                            primitiveTypeCreator.Add(creator.curType, creator);
                         }
                     }
                 }

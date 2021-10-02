@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FieldCreators", "FieldCreat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListCreatorLib", "ListCreatorLib\ListCreatorLib.csproj", "{6292070D-9C26-4279-A82B-ABE931B8E079}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoolCreatorLib", "BoolCreatorLib\BoolCreatorLib.csproj", "{1DF75EDE-AA90-4521-A946-C55D3B94747A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{6292070D-9C26-4279-A82B-ABE931B8E079}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6292070D-9C26-4279-A82B-ABE931B8E079}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6292070D-9C26-4279-A82B-ABE931B8E079}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DF75EDE-AA90-4521-A946-C55D3B94747A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DF75EDE-AA90-4521-A946-C55D3B94747A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DF75EDE-AA90-4521-A946-C55D3B94747A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DF75EDE-AA90-4521-A946-C55D3B94747A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
