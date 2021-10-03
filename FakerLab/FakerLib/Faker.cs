@@ -14,6 +14,7 @@ namespace FakerLib
 
         private Dictionary<Type, IPrimitiveTypeCreator> primitiveTypeCreator;
         private Dictionary<Type, IGenericCreator> genericTypeCreator;
+        private Dictionary<PropertyInfo, IPrimitiveTypeCreator> customPrimitiveTypeCreator = new Dictionary<PropertyInfo, IPrimitiveTypeCreator>();
 
         private HashSet<Type> createdTypesInClass;
 
@@ -50,15 +51,23 @@ namespace FakerLib
                     {
                         if (typeInterface.Equals(typeof(IGenericCreator)))
                         {
-                            var creator = (IGenericCreator)Activator.CreateInstance(type,this.primitiveTypeCreator);
+                            var creator = (IGenericCreator)Activator.CreateInstance(type, this.primitiveTypeCreator);
                             genericTypeCreator.Add(creator.curType, creator);
-                        } else if (typeInterface.Equals(typeof(IPrimitiveTypeCreator))) {
+                        }
+                        else if (typeInterface.Equals(typeof(IPrimitiveTypeCreator)))
+                        {
                             var creator = (IPrimitiveTypeCreator)Activator.CreateInstance(type);
                             primitiveTypeCreator.Add(creator.curType, creator);
                         }
                     }
                 }
             }
+        }
+
+
+        public Faker(FakerConfig config) : this()
+        {
+            this.customPrimitiveTypeCreator = config.creators;
         }
 
         public T create<T>()
@@ -70,7 +79,7 @@ namespace FakerLib
         {
             object createdObject = null;
 
-           
+
             if (primitiveTypeCreator.TryGetValue(type, out IPrimitiveTypeCreator creator))
             {
                 createdObject = creator.create();
@@ -85,9 +94,11 @@ namespace FakerLib
             }
             else if (type.IsClass && !type.IsArray && !type.IsPointer && !type.IsAbstract && !type.IsGenericType)
             {
-                if (!createdTypesInClass.Contains(type)){
+                if (!createdTypesInClass.Contains(type))
+                {
                     createdObject = createClass(type);
-                } else
+                }
+                else
                 {
                     createdObject = null;
                 }
@@ -118,7 +129,8 @@ namespace FakerLib
             createdTypesInClass.Add(type);
 
 
-            if (constructor != null) { 
+            if (constructor != null)
+            {
                 createdClass = createFromConstructor(constructor, type);
             }
 
@@ -130,13 +142,14 @@ namespace FakerLib
         }
 
 
-        private object createFromProperties(Type type,object createdObject)
+        private object createFromProperties(Type type, object createdObject)
         {
             object created = null;
             if (createdObject == null)
             {
                 created = Activator.CreateInstance(type);
-            } else
+            }
+            else
             {
                 created = createdObject;
             }
@@ -144,11 +157,15 @@ namespace FakerLib
             foreach (FieldInfo fieldInfo in type.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic))
             {
                 if (fieldInfo.GetValue(created) == null)
-                { 
-                    var value = createObject(fieldInfo.FieldType);
+                {
+                    object value = null;
+                    if (!createByCustomCreator(fieldInfo, out value))
+                    {
+                        value = createObject(fieldInfo.FieldType);
+                    }
                     fieldInfo.SetValue(created, value);
                 }
-           
+
             }
 
             foreach (PropertyInfo propertyInfo in type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic))
@@ -157,7 +174,11 @@ namespace FakerLib
                 {
                     if (propertyInfo.GetValue(created) == null)
                     {
-                        var value = createObject(propertyInfo.PropertyType);
+                        object value = null;
+                        if (!createByCustomCreator(propertyInfo, out value))
+                        {
+                            value = createObject(propertyInfo.PropertyType);
+                        }
                         propertyInfo.SetValue(created, value);
                     }
                 }
@@ -172,7 +193,10 @@ namespace FakerLib
 
             foreach (ParameterInfo parameterInfo in constructor.GetParameters())
             {
-                var value = createObject(parameterInfo.ParameterType);
+               object value = null;
+               if (!createByCustomCreator(parameterInfo,type,out value)) {
+                    value = createObject(parameterInfo.ParameterType);
+                }
                 parametersValues.Add(value);
             }
 
@@ -184,6 +208,49 @@ namespace FakerLib
             {
                 return null;
             }
+        }
+
+
+        private bool createByCustomCreator(ParameterInfo parameterInfo, Type type,out object created)
+        {
+            foreach (KeyValuePair<PropertyInfo, IPrimitiveTypeCreator> keyValue in customPrimitiveTypeCreator)
+            {
+                if (keyValue.Key.Name == parameterInfo.Name && keyValue.Value.curType.Equals(parameterInfo.ParameterType)  && keyValue.Key.ReflectedType.Equals(type))
+                {
+                    created = keyValue.Value.create();
+                    return true;
+                }
+            }
+            created = null;
+            return false;
+        }
+
+        private bool createByCustomCreator(PropertyInfo propertyInfo, out object created)
+        {
+            if (customPrimitiveTypeCreator.TryGetValue(propertyInfo, out IPrimitiveTypeCreator creator))
+            {
+                created = creator.create();
+                return true;
+            }
+            else
+            {
+                created = null;
+                return false;
+            }
+        }
+
+        private bool createByCustomCreator(FieldInfo fieldInfo, out object created)
+        {
+            foreach (KeyValuePair<PropertyInfo, IPrimitiveTypeCreator> keyValue in customPrimitiveTypeCreator)
+            {
+                if (keyValue.Key.Name == fieldInfo.Name  && keyValue.Value.curType.Equals(fieldInfo.FieldType) && keyValue.Key.ReflectedType.Equals(fieldInfo.ReflectedType))
+                {
+                    created = keyValue.Value.create();
+                    return true;
+                }
+            }
+            created = null;
+            return false;
         }
 
     }

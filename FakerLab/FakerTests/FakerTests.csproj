@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FakerLib\FakerLib.csproj" />
+    <ProjectReference Include="..\FieldCreators\FieldCreators.csproj" />
   </ItemGroup>
 
 </Project>

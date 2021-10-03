@@ -41,8 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DefaultStringCreator.cs" />
     <Compile Include="Faker.cs" />
+    <Compile Include="FakerConfig.cs" />
     <Compile Include="IFaker.cs" />
+    <Compile Include="IFakerConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

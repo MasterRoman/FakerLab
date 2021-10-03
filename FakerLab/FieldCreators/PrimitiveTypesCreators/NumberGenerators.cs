@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FieldCreators.PrimitiveTypesCreators
 {
-    class ByteCreator : IPrimitiveTypeCreator
+    public class ByteCreator : IPrimitiveTypeCreator
     {
         public Type curType { get; }
 
@@ -23,7 +23,7 @@ namespace FieldCreators.PrimitiveTypesCreators
 
     }
 
-    class SbyteCreator : IPrimitiveTypeCreator
+    public class SbyteCreator : IPrimitiveTypeCreator
     {
         public Type curType { get; }
 
@@ -40,7 +40,7 @@ namespace FieldCreators.PrimitiveTypesCreators
 
     }
 
-    class DecimalCreator : IPrimitiveTypeCreator
+    public class DecimalCreator : IPrimitiveTypeCreator
     {
         public Type curType { get; }
 
@@ -57,7 +57,7 @@ namespace FieldCreators.PrimitiveTypesCreators
 
     }
 
-    class DoubleCreator : IPrimitiveTypeCreator
+    public class DoubleCreator : IPrimitiveTypeCreator
     {
         public Type curType { get; }
 
@@ -74,7 +74,7 @@ namespace FieldCreators.PrimitiveTypesCreators
 
     }
 
-    class FloatCreator : IPrimitiveTypeCreator
+    public class FloatCreator : IPrimitiveTypeCreator
     {
         public Type curType { get; }
 
@@ -91,7 +91,7 @@ namespace FieldCreators.PrimitiveTypesCreators
 
     }
 
-    class IntCreator : IPrimitiveTypeCreator
+    public class IntCreator : IPrimitiveTypeCreator
     {
         public Type curType { get; }
 
@@ -108,7 +108,7 @@ namespace FieldCreators.PrimitiveTypesCreators
 
     }
 
-    class UIntCreator : IPrimitiveTypeCreator
+    public class UIntCreator : IPrimitiveTypeCreator
     {
         public Type curType { get; }
 
@@ -125,7 +125,7 @@ namespace FieldCreators.PrimitiveTypesCreators
 
     }
 
-    class LongCreator : IPrimitiveTypeCreator
+    public class LongCreator : IPrimitiveTypeCreator
     {
         public Type curType { get; }
 
@@ -142,7 +142,7 @@ namespace FieldCreators.PrimitiveTypesCreators
 
     }
 
-    class ULongCreator : IPrimitiveTypeCreator
+    public class ULongCreator : IPrimitiveTypeCreator
     {
         public Type curType { get; }
 
@@ -160,7 +160,7 @@ namespace FieldCreators.PrimitiveTypesCreators
     }
 
 
-    class ShortCreator : IPrimitiveTypeCreator
+    public class ShortCreator : IPrimitiveTypeCreator
     {
         public Type curType { get; }
 
@@ -177,7 +177,7 @@ namespace FieldCreators.PrimitiveTypesCreators
 
     }
 
-    class UShortCreator : IPrimitiveTypeCreator
+    public class UShortCreator : IPrimitiveTypeCreator
     {
         public Type curType { get; }
 

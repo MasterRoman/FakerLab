@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using FakerLib;
 
 using FakerTests.Mocks;
+using FieldCreators.PrimitiveTypesCreators;
+using FieldCreators;
 
 namespace FakerTests
 {
@@ -49,6 +51,19 @@ namespace FakerTests
         {
             ClassWithBool instance = faker.create<ClassWithBool>();
             Assert.True(instance.boolean == false || instance.boolean == true);
+        }
+
+        [Fact]
+        public void TestConfigOfFaker()
+        {
+            var config = new FakerConfig();
+            config.add<TestClassWithString, string, DefaultStringCreator>(instance => instance.str);
+        
+            faker = new Faker(config);
+
+            TestClassWithString instance = faker.create<TestClassWithString>();
+            Assert.Equal("default", instance.str);
+
         }
 
     }
